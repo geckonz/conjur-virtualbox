@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu-14-04-x64-virtualbox"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "conjur.local"
 
   # Disable automatic box update checking. If you disable this, then
@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 443, host: 4443
   config.vm.network "forwarded_port", guest: 8443, host: 8443
   config.vm.network "forwarded_port", guest: 636, host: 6636
-  config.vm.network "forwarded_port", guest: 5432, host: 5432 
+  config.vm.network "forwarded_port", guest: 5432, host: 5432
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
      # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "2048"
   end
   #
   # View the documentation for the provider you are using for more
@@ -58,11 +58,6 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-     sudo apt-get --force-yes update
-     sudo apt-get install -yqq puppet
-  SHELL
-
 
   config.vm.provision "puppet" do |puppet|
     puppet.module_path = "modules"
